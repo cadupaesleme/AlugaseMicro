@@ -6,12 +6,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VendorMicro.Domain.Interfaces;
+using VendorMicro.Domain.Services;
+using VendorMicro.Infrastructure.Contexts;
+using VendorMicro.Infrastructure.Repositories;
 
-namespace Vendor.API
+namespace VendorMicro.API
 {
     public class Startup
     {
@@ -26,6 +31,12 @@ namespace Vendor.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IVendorRepository, VendorEntityFrameworkRepository>();
+            services.AddScoped<IVendorService, VendorService>();
+
+            //services.AddDbContext<VendorContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("VendorConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
