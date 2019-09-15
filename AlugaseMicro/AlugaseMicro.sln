@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customer", "Customer", "{ED
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VendorMicro", "VendorMicro", "{BE12DF5B-CE05-42EC-9DAB-79CE078A0C55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendorMicro.Domain", "VendorMicro.Domain\VendorMicro.Domain.csproj", "{D77E2FB2-DEE9-48D7-86DA-80850EB37DBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendorMicro.Domain", "VendorMicro.Domain\VendorMicro.Domain.csproj", "{D77E2FB2-DEE9-48D7-86DA-80850EB37DBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendorMicro.Infrastructure", "VendorMicro.Infrastructure\VendorMicro.Infrastructure.csproj", "{4C7C8D36-AFDF-467F-8E3E-FA999607A9CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendorMicro.Infrastructure", "VendorMicro.Infrastructure\VendorMicro.Infrastructure.csproj", "{4C7C8D36-AFDF-467F-8E3E-FA999607A9CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendorMicro.API", "VendorMicro.API\VendorMicro.API.csproj", "{CAE05045-FEBD-4303-BBCE-F37CD2D97609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendorMicro.API", "VendorMicro.API\VendorMicro.API.csproj", "{CAE05045-FEBD-4303-BBCE-F37CD2D97609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

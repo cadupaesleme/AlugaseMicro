@@ -22,6 +22,10 @@ namespace VendorMicro.Domain.Services
 
         public void Create(Vendor vendor)
         {
+            if (vendor.Id == Guid.Empty)
+            {
+                vendor.Id = new Guid();
+            }
             _vendorRepository.Create(vendor);
         }
 
