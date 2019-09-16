@@ -42,35 +42,36 @@ namespace VendorMicro.API.Controllers
             return Ok(_vendorService.Read(id));
         }
 
-        //// PUT: api/Vendor/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutVendor(Guid id, Vendor vendor)
-        //{
-        //    if (id != vendor.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        // PUT: api/Vendor/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutVendor(Guid id, Vendor vendor)
+        {
+            if (id != vendor.Id)
+            {
+                return BadRequest();
+            }
 
-        //    _context.Entry(vendor).State = EntityState.Modified;
+            try
+            {
+                _vendorService.Update(vendor);
+                _vendorService.Complete();
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!VendorExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+                return Ok(vendor);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!VendorExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return NoContent();
-        //}
+            //return NoContent();
+        }
 
         // POST: api/Vendor
         [HttpPost]
@@ -79,7 +80,7 @@ namespace VendorMicro.API.Controllers
             _vendorService.Create(vendor);
             _vendorService.Complete();
 
-            return CreatedAtAction("GetVendors", null);
+            return Ok(vendor);
         }
 
         // DELETE: api/Vendor/5
@@ -87,23 +88,26 @@ namespace VendorMicro.API.Controllers
         public async Task<ActionResult<Vendor>> DeleteVendor(Guid id)
         {
             _vendorService.Delete(id);
-            return CreatedAtAction("GetVendors", null);
+            _vendorService.Complete();
+
+            return Ok("Deletado");
         }
 
         public void Add_Queue()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=alugasestorage;AccountKey=P4il7lcfc8wdXTe1cQULpzcyp3+i+U9BkjxtJWd6e9zRd8R67aFW7RQTfLv1xp8G8M8RzqBLjMLcdNMibRFZHw==;EndpointSuffix=core.windows.net");         
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();         
-            CloudQueue queue = queueClient.GetQueueReference("filateste");         
-            queue.CreateIfNotExistsAsync();         
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=alugasestorage;AccountKey=P4il7lcfc8wdXTe1cQULpzcyp3+i+U9BkjxtJWd6e9zRd8R67aFW7RQTfLv1xp8G8M8RzqBLjMLcdNMibRFZHw==;EndpointSuffix=core.windows.net");
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            CloudQueue queue = queueClient.GetQueueReference("filateste");
+            queue.CreateIfNotExistsAsync();
             //CloudQueueMessage message = new CloudQueueMessage("Hello, World");
-            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(new Vendor { Id = Guid.NewGuid(), Name = "Fila"}));
+            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(new Vendor { Id = Guid.NewGuid(), Name = "Fila" }));
             queue.AddMessageAsync(message);
             //Fonte: https://docs.microsoft.com/pt-br/azure/storage/queues/storage-dotnet-how-to-use-queues
         }
-        //private bool VendorExists(Guid id)
-        //{
-        //    return _context.Vendors.Any(e => e.Id == id);
-        //}
+
+        private bool VendorExists(Guid id)
+        {
+            return _vendorService.Read(id) != null;
+        }
     }
 }
