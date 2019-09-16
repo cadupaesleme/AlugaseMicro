@@ -6,6 +6,7 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using VendorMicro.Domain.VendorAggregate;
 
 namespace VendorConsole
 {
@@ -27,8 +28,26 @@ namespace VendorConsole
             CloudQueue queue = queueClient.GetQueueReference(_QueueName);
 
 
-            string value = await ReceiveMessageAsync(queue);
-            Console.WriteLine($"Received: {value}");
+            //string value = await ReceiveMessageAsync(queue);
+            //Console.WriteLine($"Received: {value}");
+
+            string messageText = "";
+            do
+            {
+                var message = await ReceiveMessageAsync(queue);
+
+                if (message == null)
+                    continue;
+
+                    messageText = message.ToString();
+                try
+                {
+                    var vendor = Newtonsoft.Json.JsonConvert.DeserializeObject<Vendor>(messageText);
+                    Console.WriteLine($"Received: {vendor.Id} - {vendor.Name}");
+                }
+                catch (Exception ex) { Console.WriteLine(messageText); };
+                System.Threading.Thread.Sleep(1000);
+            } while (messageText != "quit");
 
         }
 

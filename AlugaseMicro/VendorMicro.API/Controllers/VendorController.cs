@@ -96,7 +96,8 @@ namespace VendorMicro.API.Controllers
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();         
             CloudQueue queue = queueClient.GetQueueReference("filateste");         
             queue.CreateIfNotExistsAsync();         
-            CloudQueueMessage message = new CloudQueueMessage("Hello, World");
+            //CloudQueueMessage message = new CloudQueueMessage("Hello, World");
+            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(new Vendor { Id = Guid.NewGuid(), Name = "Fila"}));
             queue.AddMessageAsync(message);
             //Fonte: https://docs.microsoft.com/pt-br/azure/storage/queues/storage-dotnet-how-to-use-queues
         }
