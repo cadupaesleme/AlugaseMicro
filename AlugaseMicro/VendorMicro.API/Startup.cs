@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using VendorMicro.API.AutoMapper;
 using VendorMicro.API.Interfaces;
 using VendorMicro.API.Service;
+using VendorMicro.Domain.CommandHandlers;
 using VendorMicro.Domain.Interfaces;
 using VendorMicro.Domain.Services;
 using VendorMicro.Infrastructure.Contexts;
@@ -47,6 +48,10 @@ namespace VendorMicro.API
 
             //AutoMapper
             services.AddAutoMapperSetup();
+
+            //Command Handler
+            services.AddScoped<IVendorCommandHandler, VendorCommandHandler>();
+
 
             //services.AddDbContext<VendorContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("VendorConnection")));
 

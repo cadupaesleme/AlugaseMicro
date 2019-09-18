@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendorMicro.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendorMicro.API", "VendorMicro.API\VendorMicro.API.csproj", "{CAE05045-FEBD-4303-BBCE-F37CD2D97609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendorConsole", "VendorConsole\VendorConsole.csproj", "{9F095794-F677-465D-A9F7-09957759FF1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendorConsole", "VendorConsole\VendorConsole.csproj", "{9F095794-F677-465D-A9F7-09957759FF1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateVendorCommandQueueReceiver", "CreateVendorCommandQueueReceiver\CreateVendorCommandQueueReceiver.csproj", "{96E5D8B0-5017-4500-AA23-5A740927B947}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9F095794-F677-465D-A9F7-09957759FF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F095794-F677-465D-A9F7-09957759FF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F095794-F677-465D-A9F7-09957759FF1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E5D8B0-5017-4500-AA23-5A740927B947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E5D8B0-5017-4500-AA23-5A740927B947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E5D8B0-5017-4500-AA23-5A740927B947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E5D8B0-5017-4500-AA23-5A740927B947}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{4C7C8D36-AFDF-467F-8E3E-FA999607A9CD} = {BE12DF5B-CE05-42EC-9DAB-79CE078A0C55}
 		{CAE05045-FEBD-4303-BBCE-F37CD2D97609} = {BE12DF5B-CE05-42EC-9DAB-79CE078A0C55}
 		{9F095794-F677-465D-A9F7-09957759FF1D} = {BE12DF5B-CE05-42EC-9DAB-79CE078A0C55}
+		{96E5D8B0-5017-4500-AA23-5A740927B947} = {BE12DF5B-CE05-42EC-9DAB-79CE078A0C55}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3EA4ECA4-75FD-44EC-8C68-1917CB6BC4F5}

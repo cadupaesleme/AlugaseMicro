@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using VendorMicro.API.Interfaces;
 using VendorMicro.API.Models;
+using VendorMicro.Domain.Commands;
 using VendorMicro.Domain.Interfaces;
+using VendorMicro.Domain.QueueManager;
 using VendorMicro.Domain.VendorAggregate;
 
 namespace VendorMicro.API.Service
@@ -24,14 +26,20 @@ namespace VendorMicro.API.Service
 
         public void Create(VendorViewModel vendorViewModel)
         {
-            _vendorService.Create(_mapper.Map<Vendor>(vendorViewModel));
-            _vendorService.Complete();
+            CreateVendorCommand createVendorCommand = new CreateVendorCommand(_mapper.Map<Vendor>(vendorViewModel));
+            QueueSender.Send(createVendorCommand);
         }
 
         public void Delete(Guid id)
         {
-            _vendorService.Delete(id);
-            _vendorService.Complete();
+            DeleteVendorCommand deleteVendorCommand = new DeleteVendorCommand(id);
+            QueueSender.Send(deleteVendorCommand);
+        }
+
+        public void Update(VendorViewModel vendorViewModel)
+        {
+            UpdateVendorCommand updateVendorCommand = new UpdateVendorCommand(_mapper.Map<Vendor>(vendorViewModel));
+            QueueSender.Send(updateVendorCommand);
         }
 
         public VendorViewModel Read(Guid id)
@@ -42,12 +50,6 @@ namespace VendorMicro.API.Service
         public IEnumerable<VendorViewModel> ReadAll()
         {
             return _mapper.Map<IEnumerable<VendorViewModel>>(_vendorService.ReadAll());
-        }
-
-        public void Update(VendorViewModel vendorViewModel)
-        {
-            _vendorService.Update(_mapper.Map<Vendor>(vendorViewModel));
-            _vendorService.Complete();
-        }
+        }        
     }
 }
