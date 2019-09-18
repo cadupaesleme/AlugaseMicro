@@ -8,8 +8,9 @@ using Microsoft.Azure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
+using VendorMicro.API.Interfaces;
+using VendorMicro.API.Models;
 using VendorMicro.Domain.Interfaces;
-using VendorMicro.Domain.VendorAggregate;
 using VendorMicro.Infrastructure.Contexts;
 
 namespace VendorMicro.API.Controllers
@@ -18,33 +19,33 @@ namespace VendorMicro.API.Controllers
     [ApiController]
     public class VendorController : ControllerBase
     {
-        private readonly IVendorService _vendorService;
+        private readonly IVendorAppService _vendorAppService;
 
-        public VendorController(IVendorService vendorService)
+        public VendorController(IVendorAppService vendorAppService)
         {
-            _vendorService = vendorService;
+            _vendorAppService = vendorAppService;
         }
 
         // GET: api/Vendor
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vendor>>> GetVendors()
+        public async Task<ActionResult<IEnumerable<VendorViewModel>>> GetVendors()
         {
             //teste fila
             Add_Queue();
 
-            return Ok(_vendorService.ReadAll());
+            return Ok(_vendorAppService.ReadAll());
         }
 
         // GET: api/Vendor/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vendor>> GetVendor(Guid id)
+        public async Task<ActionResult<VendorViewModel>> GetVendor(Guid id)
         {
-            return Ok(_vendorService.Read(id));
+            return Ok(_vendorAppService.Read(id));
         }
 
         // PUT: api/Vendor/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVendor(Guid id, Vendor vendor)
+        public async Task<IActionResult> PutVendor(Guid id, VendorViewModel vendor)
         {
             if (id != vendor.Id)
             {
@@ -53,9 +54,7 @@ namespace VendorMicro.API.Controllers
 
             try
             {
-                _vendorService.Update(vendor);
-                _vendorService.Complete();
-
+                _vendorAppService.Update(vendor);
                 return Ok(vendor);
             }
             catch (DbUpdateConcurrencyException)
@@ -75,21 +74,17 @@ namespace VendorMicro.API.Controllers
 
         // POST: api/Vendor
         [HttpPost]
-        public async Task<ActionResult<Vendor>> PostVendor(Vendor vendor)
+        public async Task<ActionResult<VendorViewModel>> PostVendor(VendorViewModel vendor)
         {
-            _vendorService.Create(vendor);
-            _vendorService.Complete();
-
+            _vendorAppService.Create(vendor);
             return Ok(vendor);
         }
 
         // DELETE: api/Vendor/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Vendor>> DeleteVendor(Guid id)
+        public async Task<ActionResult<VendorViewModel>> DeleteVendor(Guid id)
         {
-            _vendorService.Delete(id);
-            _vendorService.Complete();
-
+            _vendorAppService.Delete(id);
             return Ok("Deletado");
         }
 
@@ -100,14 +95,14 @@ namespace VendorMicro.API.Controllers
             CloudQueue queue = queueClient.GetQueueReference("filateste");
             queue.CreateIfNotExistsAsync();
             //CloudQueueMessage message = new CloudQueueMessage("Hello, World");
-            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(new Vendor { Id = Guid.NewGuid(), Name = "Fila" }));
+            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(new VendorViewModel { Id = Guid.NewGuid(), Name = "Fila" }));
             queue.AddMessageAsync(message);
             //Fonte: https://docs.microsoft.com/pt-br/azure/storage/queues/storage-dotnet-how-to-use-queues
         }
 
         private bool VendorExists(Guid id)
         {
-            return _vendorService.Read(id) != null;
+            return _vendorAppService.Read(id) != null;
         }
     }
 }

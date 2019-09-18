@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VendorMicro.API.AutoMapper;
+using VendorMicro.API.Interfaces;
+using VendorMicro.API.Service;
 using VendorMicro.Domain.Interfaces;
 using VendorMicro.Domain.Services;
 using VendorMicro.Infrastructure.Contexts;
@@ -31,9 +35,18 @@ namespace VendorMicro.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                        
+            //Application
+            services.AddScoped<IVendorAppService, VendorAppService>();
 
+            //Repository
             services.AddScoped<IVendorRepository, VendorEntityFrameworkRepository>();
+
+            //Service
             services.AddScoped<IVendorService, VendorService>();
+
+            //AutoMapper
+            services.AddAutoMapperSetup();
 
             //services.AddDbContext<VendorContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("VendorConnection")));
 
