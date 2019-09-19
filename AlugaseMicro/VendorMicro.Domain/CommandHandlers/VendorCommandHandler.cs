@@ -6,17 +6,13 @@ using VendorMicro.Domain.Interfaces;
 
 namespace VendorMicro.Domain.CommandHandlers
 {
-    public class VendorCommandHandler : IVendorCommandHandler
+    public class VendorCommandHandler
     {
         private readonly IVendorService _vendorService;
 
         public VendorCommandHandler(IVendorService vendorService)
         {
             _vendorService = vendorService;
-        }
-
-        public void Handle(VendorCommand command)
-        {
         }
 
         public void Handle(CreateVendorCommand command)

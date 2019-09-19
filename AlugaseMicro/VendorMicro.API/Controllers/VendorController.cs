@@ -84,20 +84,13 @@ namespace VendorMicro.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<VendorViewModel>> DeleteVendor(Guid id)
         {
+            if (!VendorExists(id))
+            {
+                return NotFound();
+            }
+
             _vendorAppService.Delete(id);
             return Ok("Deletado");
-        }
-
-        public void Add_Queue()
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=alugasestorage;AccountKey=P4il7lcfc8wdXTe1cQULpzcyp3+i+U9BkjxtJWd6e9zRd8R67aFW7RQTfLv1xp8G8M8RzqBLjMLcdNMibRFZHw==;EndpointSuffix=core.windows.net");
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            CloudQueue queue = queueClient.GetQueueReference("filateste");
-            queue.CreateIfNotExistsAsync();
-            //CloudQueueMessage message = new CloudQueueMessage("Hello, World");
-            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(new VendorViewModel { Id = Guid.NewGuid(), Name = "Fila" }));
-            queue.AddMessageAsync(message);
-            //Fonte: https://docs.microsoft.com/pt-br/azure/storage/queues/storage-dotnet-how-to-use-queues
         }
 
         private bool VendorExists(Guid id)

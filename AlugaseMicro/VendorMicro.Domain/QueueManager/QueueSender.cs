@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VendorMicro.Domain.CommandHandlers;
 using VendorMicro.Domain.Commands;
+using VendorMicro.Domain.Interfaces;
 using VendorMicro.Domain.Services;
 
 namespace VendorMicro.Domain.QueueManager
@@ -13,13 +14,13 @@ namespace VendorMicro.Domain.QueueManager
     public class QueueSender
     {
         const string _ConnectionString = ("DefaultEndpointsProtocol=https;AccountName=alugasestorage;AccountKey=P4il7lcfc8wdXTe1cQULpzcyp3+i+U9BkjxtJWd6e9zRd8R67aFW7RQTfLv1xp8G8M8RzqBLjMLcdNMibRFZHw==;EndpointSuffix=core.windows.net");
-        private readonly IVendorCommandHandler _vendorCommandHandler;
+        private readonly IVendorService _vendorService;
 
 
-        //public QueueSender(IVendorCommandHandler vendorCommandHandler)
-        //{
-        //    _vendorCommandHandler = vendorCommandHandler;
-        //}
+        public QueueSender(IVendorService vendorService)
+        {
+            _vendorService = vendorService;
+        }
 
         public static void Send(VendorCommand vendorCommand)
         {
@@ -33,7 +34,7 @@ namespace VendorMicro.Domain.QueueManager
 
         }
 
-        public static async void Receive(string queueName)
+        public async Task Receive(string queueName, Type type)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_ConnectionString);
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
@@ -50,8 +51,17 @@ namespace VendorMicro.Domain.QueueManager
                 messageText = message.ToString();
                 try
                 {
-                    //var vendorCommand = Newtonsoft.Json.JsonConvert.DeserializeObject<VendorCommand>(messageText);
-                    //_vendorCommandHandler.Handle(vendorCommand);
+                    
+                    VendorCommandHandler obj = new VendorCommandHandler(_vendorService);
+
+                    var vendorCommand = Newtonsoft.Json.JsonConvert.DeserializeObject(messageText, type);
+
+                    var context = obj.GetType();
+
+                    var method = context.GetMethod("Handle", new Type[] { type });
+
+                    method.Invoke(obj, new object[] { vendorCommand });
+                        
                 }
                 catch (Exception ex) { Console.WriteLine(messageText); };
                 System.Threading.Thread.Sleep(1000);
