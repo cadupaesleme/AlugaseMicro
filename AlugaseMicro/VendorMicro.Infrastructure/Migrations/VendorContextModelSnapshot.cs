@@ -26,6 +26,10 @@ namespace VendorMicro.Infrastructure.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<string>("Bithday");
+
+                    b.Property<string>("Gender");
+
                     b.Property<string>("Identification");
 
                     b.Property<string>("Name");

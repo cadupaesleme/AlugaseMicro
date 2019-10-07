@@ -31,7 +31,7 @@ namespace VendorMicro.API.Controllers
         public async Task<ActionResult<IEnumerable<VendorViewModel>>> GetVendors()
         {
             //teste fila
-            Add_Queue();
+            //Add_Queue();
 
             return Ok(_vendorAppService.ReadAll());
         }

@@ -1,0 +1,5 @@
+﻿=====ADD-MIGRATION
+dotnet ef migrations add Customer_migration --context CustomerContext -p .\CustomerMicro.Infrastructure\CustomerMicro.Infrastructure.csproj -s .\CustomerMicro.API\CustomerMicro.API.csproj
+
+=====UPDATE
+dotnet ef database update -p .\CustomerMicro.Infrastructure\CustomerMicro.Infrastructure.csproj -s .\CustomerMicro.API\CustomerMicro.API.csproj

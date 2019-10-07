@@ -1,5 +1,5 @@
 ﻿=====ADD-MIGRATION
-dotnet ef migrations add   --context VendorContext -p .\VendorMicro.Infrastructure\VendorMicro.Infrastructure.csproj -s .\VendorMicro.API\VendorMicro.API.csproj
+dotnet ef migrations add vendor_migration --context VendorContext -p .\VendorMicro.Infrastructure\VendorMicro.Infrastructure.csproj -s .\VendorMicro.API\VendorMicro.API.csproj
 
 =====UPDATE
 dotnet ef database update -p .\VendorMicro.Infrastructure\VendorMicro.Infrastructure.csproj -s .\VendorMicro.API\VendorMicro.API.csproj

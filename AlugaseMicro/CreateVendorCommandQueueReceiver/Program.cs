@@ -13,7 +13,7 @@ namespace CreateVendorCommandQueueReceiver
 {
     class Program
     {
-        const string _queueName = "update-vendor-command-queue";
+        
         static async Task Main(string[] args)
         {
             var tasks = new List<Task>();
@@ -29,7 +29,6 @@ namespace CreateVendorCommandQueueReceiver
 
         private static async Task AwakeReceive(string queueName, Type type)
         {
-            //Gambiarra total, melhorar isso
             var collection = new ServiceCollection();
             collection.AddScoped<IVendorService, VendorService>();
             collection.AddScoped<IVendorRepository, VendorEntityFrameworkRepository>();

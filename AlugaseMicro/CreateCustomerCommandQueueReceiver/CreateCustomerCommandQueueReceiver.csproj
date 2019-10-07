@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerMicro.Domain\CustomerMicro.Domain.csproj" />
+    <ProjectReference Include="..\CustomerMicro.Infrastructure\CustomerMicro.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

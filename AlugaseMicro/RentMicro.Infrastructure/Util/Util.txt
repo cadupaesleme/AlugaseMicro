@@ -1,0 +1,5 @@
+﻿=====ADD-MIGRATION
+dotnet ef migrations add rent_migration  --context RentContext -p .\RentMicro.Infrastructure\RentMicro.Infrastructure.csproj -s .\RentMicro.API\RentMicro.API.csproj
+
+=====UPDATE
+dotnet ef database update -p .\RentMicro.Infrastructure\RentMicro.Infrastructure.csproj -s .\RentMicro.API\RentMicro.API.csproj
