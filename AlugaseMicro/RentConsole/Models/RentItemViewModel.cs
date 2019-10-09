@@ -8,6 +8,7 @@ namespace RentConsole
     public class RentItem
     {
         public Guid Id { get; set; }
+        public Guid VendorID { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public String InitialDate { get; set; }

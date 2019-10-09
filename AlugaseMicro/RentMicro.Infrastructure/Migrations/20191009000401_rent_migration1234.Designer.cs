@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentMicro.Infrastructure.Contexts;
 
 namespace RentMicro.Infrastructure.Migrations
 {
     [DbContext(typeof(RentContext))]
-    partial class RentContextModelSnapshot : ModelSnapshot
+    [Migration("20191009000401_rent_migration1234")]
+    partial class rent_migration1234
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +25,8 @@ namespace RentMicro.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("CustomerId");
 
                     b.Property<string>("Date");
 
@@ -46,6 +50,8 @@ namespace RentMicro.Infrastructure.Migrations
 
                     b.Property<decimal>("UnitPrice");
 
+                    b.Property<Guid>("VendorID");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RentId");
@@ -55,7 +61,7 @@ namespace RentMicro.Infrastructure.Migrations
 
             modelBuilder.Entity("RentMicro.Domain.RentAggregate.RentItem", b =>
                 {
-                    b.HasOne("RentMicro.Domain.RentAggregate.Rent", "Rent")
+                    b.HasOne("RentMicro.Domain.RentAggregate.Rent")
                         .WithMany("RentItens")
                         .HasForeignKey("RentId");
                 });

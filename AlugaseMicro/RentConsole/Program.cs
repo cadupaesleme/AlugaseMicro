@@ -108,6 +108,7 @@ namespace RentConsole
 
             RentItem item = new RentItem();
             item.Id = Guid.Parse(id);
+            item.VendorID = Guid.NewGuid();
             item.EndDate = DateTime.Now.AddDays(20).ToShortDateString();
             item.InitialDate = DateTime.Now.ToShortDateString();
             item.Quantity = random.Next(1, 10);
@@ -124,8 +125,10 @@ namespace RentConsole
             Random random = new Random();
             Rent r = new Rent();
             r.Date = DateTime.Now.ToString();
+            r.CustomerId = Guid.NewGuid();
 
             RentItem item = new RentItem();
+            item.VendorID = Guid.NewGuid();
             item.EndDate = DateTime.Now.AddDays(10).ToShortDateString();
             item.InitialDate = DateTime.Now.ToShortDateString();
             item.Quantity = random.Next(1, 10);
