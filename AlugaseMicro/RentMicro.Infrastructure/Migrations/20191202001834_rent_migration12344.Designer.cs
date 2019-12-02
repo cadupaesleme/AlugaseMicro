@@ -10,8 +10,8 @@ using RentMicro.Infrastructure.Contexts;
 namespace RentMicro.Infrastructure.Migrations
 {
     [DbContext(typeof(RentContext))]
-    [Migration("20191008235517_rent_migration123")]
-    partial class rent_migration123
+    [Migration("20191202001834_rent_migration12344")]
+    partial class rent_migration12344
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,8 @@ namespace RentMicro.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("CustomerId");
 
                     b.Property<string>("Date");
 
@@ -47,6 +49,8 @@ namespace RentMicro.Infrastructure.Migrations
                     b.Property<Guid?>("RentId");
 
                     b.Property<decimal>("UnitPrice");
+
+                    b.Property<Guid>("VendorID");
 
                     b.HasKey("Id");
 

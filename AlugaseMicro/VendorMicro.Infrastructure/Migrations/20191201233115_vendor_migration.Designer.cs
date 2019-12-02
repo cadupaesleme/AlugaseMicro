@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RentMicro.Infrastructure.Contexts;
+using VendorMicro.Infrastructure.Contexts;
 
-namespace RentMicro.Infrastructure.Migrations
+namespace VendorMicro.Infrastructure.Migrations
 {
-    [DbContext(typeof(RentContext))]
-    [Migration("20191003025936_rent_migration")]
-    partial class rent_migration
+    [DbContext(typeof(VendorContext))]
+    [Migration("20191201233115_vendor_migration")]
+    partial class vendor_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,22 +21,24 @@ namespace RentMicro.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RentMicro.Domain.RentAggregate.Rent", b =>
+            modelBuilder.Entity("VendorMicro.Domain.VendorAggregate.Vendor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("EndDate");
+                    b.Property<string>("Address");
 
-                    b.Property<string>("InitialDate");
+                    b.Property<string>("Bithday");
 
-                    b.Property<int>("Quantity");
+                    b.Property<string>("Gender");
 
-                    b.Property<decimal>("UnitPrice");
+                    b.Property<string>("Identification");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rents");
+                    b.ToTable("Vendors");
                 });
 #pragma warning restore 612, 618
         }

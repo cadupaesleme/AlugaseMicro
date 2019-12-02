@@ -10,7 +10,7 @@ using RentMicro.Infrastructure.Contexts;
 namespace RentMicro.Infrastructure.Migrations
 {
     [DbContext(typeof(RentContext))]
-    [Migration("20191009000401_rent_migration1234")]
+    [Migration("20191202001258_rent_migration1234")]
     partial class rent_migration1234
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -14,7 +14,7 @@ namespace RentMicro.Domain.QueueManager
 {
     public class QueueSender
     {
-        const string _ConnectionString = ("DefaultEndpointsProtocol=https;AccountName=alugasestorage;AccountKey=P4il7lcfc8wdXTe1cQULpzcyp3+i+U9BkjxtJWd6e9zRd8R67aFW7RQTfLv1xp8G8M8RzqBLjMLcdNMibRFZHw==;EndpointSuffix=core.windows.net");
+        const string _ConnectionString = ("DefaultEndpointsProtocol=https;AccountName=alugasestorage;AccountKey=V/TZcvSSIGvLMFNGY04rDD61PK3W86de2Rgt+2YE8OZfv5jHYJZAebsMVsKgjOPfSP0/jOoSkWHExnoMkk8OxA==;EndpointSuffix=core.windows.net");
         private readonly IRentService _RentService;
         private readonly IRentItemService _RentItemService;
 

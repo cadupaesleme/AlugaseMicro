@@ -2,7 +2,7 @@
 
 namespace RentMicro.Infrastructure.Migrations
 {
-    public partial class rent_migration123 : Migration
+    public partial class rent_migration12344 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

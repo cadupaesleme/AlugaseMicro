@@ -3,32 +3,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RentMicro.Infrastructure.Migrations
 {
-    public partial class rent_migration2 : Migration
+    public partial class rent_migration123 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "EndDate",
-                table: "Rents");
-
-            migrationBuilder.DropColumn(
-                name: "Quantity",
-                table: "Rents");
-
-            migrationBuilder.DropColumn(
-                name: "UnitPrice",
-                table: "Rents");
-
-            migrationBuilder.RenameColumn(
-                name: "InitialDate",
-                table: "Rents",
-                newName: "Date");
+            migrationBuilder.CreateTable(
+                name: "Rents",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CustomerId = table.Column<Guid>(nullable: false),
+                    Date = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rents", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "RentItem",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    VendorID = table.Column<Guid>(nullable: false),
                     UnitPrice = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     InitialDate = table.Column<string>(nullable: true),
@@ -57,27 +54,8 @@ namespace RentMicro.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "RentItem");
 
-            migrationBuilder.RenameColumn(
-                name: "Date",
-                table: "Rents",
-                newName: "InitialDate");
-
-            migrationBuilder.AddColumn<string>(
-                name: "EndDate",
-                table: "Rents",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Quantity",
-                table: "Rents",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<decimal>(
-                name: "UnitPrice",
-                table: "Rents",
-                nullable: false,
-                defaultValue: 0m);
+            migrationBuilder.DropTable(
+                name: "Rents");
         }
     }
 }
